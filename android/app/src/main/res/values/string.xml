@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lavacar</string>
+    <string name="facebook_app_id">526534596336179</string>
+    <string name="fb_login_protocol_scheme">fb526534596336179</string>
+    <string name="facebook_client_token">4bf673d0c03ac49a4545659d93a3f951</string>
+
+</resources>

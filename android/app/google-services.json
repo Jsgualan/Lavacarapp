@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "491398396053",
+    "project_id": "lavacar-ac83f",
+    "storage_bucket": "lavacar-ac83f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491398396053:android:452198c6bfbe218845439c",
+        "android_client_info": {
+          "package_name": "com.tesis.lavacar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "491398396053-c2mn14pjpjp8r5oflbg2p9takj2c2e7o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACT7LuTqRkbbO2TWD4gsAbQx0Wdgzxz6M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "491398396053-c2mn14pjpjp8r5oflbg2p9takj2c2e7o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
