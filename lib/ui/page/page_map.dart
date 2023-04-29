@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +10,7 @@ import '../util/global_function.dart';
 import '../util/global_label.dart';
 import '../util/global_widget.dart';
 import '../util/style_map.dart';
+
 
 class PageMap extends StatefulWidget {
   static const route = GlobalLabel.routeMap;
@@ -43,7 +43,7 @@ class _PageMapState extends State<PageMap> {
                   color: GlobalColor.colorBackground,
                   child: Stack(
                     children: [
-                      googleMap(),
+                      // googleMap(),
                       pinLocation(),
                       setLocation(),
                       myLocation()
@@ -79,6 +79,7 @@ class _PageMapState extends State<PageMap> {
       },
     );
   }
+
 
   Widget myLocation() {
     return Align(

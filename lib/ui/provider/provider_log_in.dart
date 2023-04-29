@@ -71,6 +71,7 @@ class ProviderLogIn with ChangeNotifier {
     if (editPassword.text.trim().isEmpty) {
       return GlobalFunction().messageAlert(GlobalLabel.textWritePassword);
     }
+
     apiInterface.responseLogIn(editEmail.text.trim(), editPassword.text.trim(),
         (code, data) {
       ResponseUser responseUser = data;

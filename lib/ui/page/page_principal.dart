@@ -1,4 +1,3 @@
-import 'package:badges/badges.dart';
 import 'package:calendar_agenda/calendar_agenda.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,11 +26,9 @@ class _PagePrincipalState extends State<PagePrincipal> {
   ProviderReserve? _providerReserve;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -131,24 +128,25 @@ class _PagePrincipalState extends State<PagePrincipal> {
                     },
                     child: _providerPrincipal!.user.rol == 1
                         ? Badge(
-                            showBadge:
+                            isLabelVisible:
                                 _providerPrincipal!.listNotification!.isNotEmpty
                                     ? true
                                     : false,
-                            badgeColor:
+                            backgroundColor:
                                 _providerPrincipal!.listNotification!.isNotEmpty
                                     ? Colors.red
                                     : Colors.white,
-                            badgeContent: Visibility(
-                              visible: true,
-                              child: Text(
-                                _providerPrincipal!.listNotification!.length
-                                    .toString(),
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 10),
-                              ),
-                            ),
+                            textColor:
+                                _providerPrincipal!.listNotification!.isNotEmpty
+                                    ? Colors.red
+                                    : Colors.white,
+                            textStyle: const TextStyle(
+                                color: Colors.white, fontSize: 10),
+                            label: Text(_providerPrincipal!
+                                .listNotification!.length
+                                .toString()),
                             child: const Icon(Icons.notifications))
+
                         : const Icon(Icons.exit_to_app)),
               )
             ],

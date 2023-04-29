@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:crypto/crypto.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
@@ -33,22 +34,25 @@ class GlobalFunction {
   informationDispositive() async {
     packageInfo = await PackageInfo.fromPlatform();
     dispositive = Dispositive();
-    if (Platform.isAndroid) {
-      androidDeviceInfo = await deviceInfoPlugin!.androidInfo;
-      dispositive!.imei = androidDeviceInfo!.id!;
-      dispositive!.model = androidDeviceInfo!.model;
-      dispositive!.brand =
-          '${androidDeviceInfo!.manufacturer} ${androidDeviceInfo!.model}';
-      dispositive!.version = packageInfo!.version;
-      dispositive!.versionSystem = androidDeviceInfo!.version.release;
-    } else {
-      iosDeviceInfo = await deviceInfoPlugin!.iosInfo;
-      dispositive!.imei = iosDeviceInfo!.identifierForVendor!;
-      dispositive!.model = iosDeviceInfo!.model;
-      dispositive!.brand = iosDeviceInfo!.name;
-      dispositive!.version = packageInfo!.version;
-      dispositive!.versionSystem = iosDeviceInfo!.systemVersion;
+    if (!kIsWeb) {
+      if (Platform.isAndroid) {
+        androidDeviceInfo = await deviceInfoPlugin!.androidInfo;
+        dispositive!.imei = androidDeviceInfo!.id!;
+        dispositive!.model = androidDeviceInfo!.model;
+        dispositive!.brand =
+            '${androidDeviceInfo!.manufacturer} ${androidDeviceInfo!.model}';
+        dispositive!.version = packageInfo!.version;
+        dispositive!.versionSystem = androidDeviceInfo!.version.release;
+      } else {
+        iosDeviceInfo = await deviceInfoPlugin!.iosInfo;
+        dispositive!.imei = iosDeviceInfo!.identifierForVendor!;
+        dispositive!.model = iosDeviceInfo!.model;
+        dispositive!.brand = iosDeviceInfo!.name;
+        dispositive!.version = packageInfo!.version;
+        dispositive!.versionSystem = iosDeviceInfo!.systemVersion;
+      }
     }
+
     GlobalPreference().setDataDispositive(dispositive);
   }
 
@@ -181,19 +185,21 @@ class GlobalFunction {
   /// Open google map
   openGoogleMaps(double latitude, double longitude) async {
     Uri url1, url2;
-    if (Platform.isAndroid) {
-      url2 = Uri.parse(
-          "https://play.google.com/store/apps/details?id=com.google.android.apps.maps");
-      url1 = Uri.parse("google.navigation:q=$latitude,$longitude&mode=a");
-    } else {
-      url2 = Uri.parse(
-          "https://apps.apple.com/es/app/google-maps-routes-y-comida/id585027354");
-      url1 = Uri.parse("https://maps.apple.com/?q=$latitude,$longitude");
-    }
-    if (await canLaunchUrl(url1)) {
-      await launchUrl(url1);
-    } else {
-      await launchUrl(url2);
+    if (!kIsWeb) {
+      if (Platform.isAndroid) {
+        url2 = Uri.parse(
+            "https://play.google.com/store/apps/details?id=com.google.android.apps.maps");
+        url1 = Uri.parse("google.navigation:q=$latitude,$longitude&mode=a");
+      } else {
+        url2 = Uri.parse(
+            "https://apps.apple.com/es/app/google-maps-routes-y-comida/id585027354");
+        url1 = Uri.parse("https://maps.apple.com/?q=$latitude,$longitude");
+      }
+      if (await canLaunchUrl(url1)) {
+        await launchUrl(url1);
+      } else {
+        await launchUrl(url2);
+      }
     }
   }
 

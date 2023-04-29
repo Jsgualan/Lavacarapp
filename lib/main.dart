@@ -33,19 +33,24 @@ import 'ui/util/global_notification.dart';
 import 'ui/util/style_scroll.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
-
 /// Notification background
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
   await GlobalNotification().setupFlutterNotifications();
   GlobalNotification().showFlutterNotification(message);
-  print('Handling a background message ${message.messageId}');
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+      options: const FirebaseOptions(
+          apiKey: "AIzaSyBXRHZmj7gWB86W_mjLkM4B71kVyy24anM",
+          authDomain: "lavacar-ac83f.firebaseapp.com",
+          projectId: "lavacar-ac83f",
+          storageBucket: "lavacar-ac83f.appspot.com",
+          messagingSenderId: "491398396053",
+          appId: "1:491398396053:web:5f8dd44c7262e25945439c",
+          measurementId: "G-1FKPZN66S6"));
   tz.initializeTimeZones();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
@@ -92,11 +97,8 @@ class _MyAppState extends State<MyApp> {
           scrollBehavior: StyleScroll(),
           home: PageSplash(),
           theme: ThemeData(
-            appBarTheme: AppBarTheme(
-                systemOverlayStyle: Platform.isIOS
-                    ? SystemUiOverlayStyle.dark
-                    : SystemUiOverlayStyle.dark),
-          ),
+              appBarTheme: const AppBarTheme(
+                  systemOverlayStyle: SystemUiOverlayStyle.dark)),
           routes: <String, WidgetBuilder>{
             PageSplash.route: (_) => PageSplash(),
             PageLogIn.route: (_) => PageLogIn(),
