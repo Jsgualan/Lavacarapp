@@ -42,15 +42,20 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-      options: const FirebaseOptions(
-          apiKey: "AIzaSyBXRHZmj7gWB86W_mjLkM4B71kVyy24anM",
-          authDomain: "lavacar-ac83f.firebaseapp.com",
-          projectId: "lavacar-ac83f",
-          storageBucket: "lavacar-ac83f.appspot.com",
-          messagingSenderId: "491398396053",
-          appId: "1:491398396053:web:5f8dd44c7262e25945439c",
-          measurementId: "G-1FKPZN66S6"));
+  if(!kIsWeb){
+    await Firebase.initializeApp();
+  }else{
+    await Firebase.initializeApp(
+        options: const FirebaseOptions(
+            apiKey: "AIzaSyBXRHZmj7gWB86W_mjLkM4B71kVyy24anM",
+            authDomain: "lavacar-ac83f.firebaseapp.com",
+            projectId: "lavacar-ac83f",
+            storageBucket: "lavacar-ac83f.appspot.com",
+            messagingSenderId: "491398396053",
+            appId: "1:491398396053:web:5f8dd44c7262e25945439c",
+            measurementId: "G-1FKPZN66S6"));
+  }
+
   tz.initializeTimeZones();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
