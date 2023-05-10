@@ -348,7 +348,7 @@ class PageRegisterReserve extends StatelessWidget {
           children: [
             Container(
               margin: const EdgeInsets.only(left: 10),
-              child: GlobalWidget().styleTextTitle('Servicio ha realizar',
+              child: GlobalWidget().styleTextTitle(GlobalLabel.textServicePerform,
                   GlobalColor.colorLetterTitle, 0.0, TextAlign.left),
             ),
             ListView.builder(

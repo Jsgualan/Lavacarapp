@@ -16,6 +16,7 @@ class GlobalLabel {
   static const routeMap = 'routeMap';
   static const routeProfile = 'routeProfile';
   static const routeService = 'routeService';
+  static const routeContact = 'routeContact';
 
   /// Route component
   static const directionImageInternal = 'assets/image/';
@@ -37,6 +38,7 @@ class GlobalLabel {
   static const textReserve = 'Reserva';
   static const textAddOperator = 'Operador';
   static const textAddService = 'Servicios';
+  static const textContact = 'Contacto';
   static const textAddUser = 'Registro';
   static const textHome = 'Domicilio';
   static const textBusiness = 'Empresa';
@@ -111,6 +113,7 @@ class GlobalLabel {
   static const textWait = 'Espere un momento...';
   static const textWelcome = 'Bienvenido';
   static const textAdmin = 'Administración';
+  static const textMenu = 'Menú';
   static const textMenuOperator = 'Operarios';
   static const textMenuUser = 'Usuarios';
   static const textQuestionLogOut = '¿Esta seguro de querer cerrar sesión?';
@@ -128,6 +131,28 @@ class GlobalLabel {
   static const textService = 'Servicio';
   static const textEditService = 'Editar servicio';
   static const textInsertService = 'Ingresa el servicio';
+  static const textServicePerform = 'Ingresa el servicio';
+  static const textMission =
+      'Nuestro reto diario es servirte como te mereces; proporcionándole un servicio profesional, de calidad y de precio razonable, sin perder nuestra característica de rapidez.';
+  static const textVision =
+      'Ser tu mejor opción en lavado, utilizando siempre tecnología de vanguardia, para brindarte un servicio rápido, innovador, profesional, cálido y de calidad, haciendo tu estancia una grata experiencia.';
+  static const textTitleMission = 'Misión';
+  static const textTitleVision = 'Visión';
+  static const textTitleValue = 'Valores';
+  static const textValue =
+      '•	Rapidez: Respetamos los tiempos y calidad en el lavado. \n\n'
+      '•	Compromiso: Contamos con sistema de circuito cerrado de T.V. y personal de seguridad para ofrecerte una mayor tranquilidad en tu visita. \n\n'
+      '•	Honestidad: Nuestros colaboradores cumplen con estrictas normas de seguridad para tu automóvil y tus pertenencias.\n\n'
+      '•	Calidad: Contamos con productos biodegradables para el cuidado de tu automóvil y el medio ambiente, manejamos además un mantenimiento eficiente de nuestros equipos, sistemas e instalaciones. \n\n'
+      '•	Cuidado ecológico: Somos una empresa que nos preocupamos por la ecología, por tal motivo contamos con un eficiente sistema de reciclado de agua.\n\n'
+      '•	Precio: Nuestro reto es garantizar un precio rentable y accesible, manteniendo la calidad y buen trato a nuestros visitantes.';
+  static const textNumber = '0999509284';
+  static const textEmailContact = 'gualanj48@gmail.com';
+  static const textOpeningHour = 'Horario de atención';
+  static const textDay = 'Lunes a Viernes';
+  static const textSaturday = 'Sábado';
+  static const textDayHour = '8:00 - 17:00';
+  static const textSaturdayHour = '8:00 - 14:00';
 
   /// Text button
   static const buttonLogIn = 'Iniciar sesión';

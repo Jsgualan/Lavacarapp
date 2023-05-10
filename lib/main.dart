@@ -6,11 +6,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:lavacar/ui/provider/provider_service.dart';
 import 'package:provider/provider.dart';
 
 import 'data/repositories/api_rest.dart';
 import 'ui/page/page_calendar.dart';
+import 'ui/page/page_contact.dart';
 import 'ui/page/page_detail_reserve.dart';
 import 'ui/page/page_list_operator.dart';
 import 'ui/page/page_log_in.dart';
@@ -27,6 +27,7 @@ import 'ui/provider/provider_log_in.dart';
 import 'ui/provider/provider_operator.dart';
 import 'ui/provider/provider_principal.dart';
 import 'ui/provider/provider_reserve.dart';
+import 'ui/provider/provider_service.dart';
 import 'ui/provider/provider_splash.dart';
 import 'ui/provider/provider_user.dart';
 import 'ui/util/global_function.dart';
@@ -120,6 +121,7 @@ class _MyAppState extends State<MyApp> {
             PageCalendar.route: (_) => PageCalendar(),
             PageMap.route: (_) => PageMap(),
             PageService.route: (_) => PageService(),
+            PageContact.route: (_) => PageContact(),
           }),
     );
   }

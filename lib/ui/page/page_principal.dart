@@ -105,12 +105,9 @@ class _PagePrincipalState extends State<PagePrincipal> {
                 },
                 child: Row(
                   children: [
-                    Visibility(
-                        visible:
-                            _providerPrincipal!.user.rol == 1 ? true : false,
-                        child: Container(
-                            margin: const EdgeInsets.only(right: 20),
-                            child: const Icon(Icons.menu))),
+                    Container(
+                        margin: const EdgeInsets.only(right: 20),
+                        child: const Icon(Icons.menu)),
                     GlobalWidget().styleTextTitle(
                         '${GlobalLabel.textHello} ${_providerPrincipal!.user.name}',
                         GlobalColor.colorLetterTitle,
@@ -130,28 +127,28 @@ class _PagePrincipalState extends State<PagePrincipal> {
                         _providerPrincipal!.logOut();
                       }
                     },
-                    child: _providerPrincipal!.user.rol == 1
-                        ? Badge(
-                            isLabelVisible:
-                                _providerPrincipal!.listNotification!.isNotEmpty
-                                    ? true
-                                    : false,
-                            backgroundColor:
-                                _providerPrincipal!.listNotification!.isNotEmpty
-                                    ? Colors.red
-                                    : Colors.white,
-                            textColor:
-                                _providerPrincipal!.listNotification!.isNotEmpty
-                                    ? Colors.red
-                                    : Colors.white,
-                            textStyle: const TextStyle(
-                                color: Colors.white, fontSize: 10),
-                            label: Text(_providerPrincipal!
-                                .listNotification!.length
-                                .toString()),
-                            child: const Icon(Icons.notifications))
-
-                        : const Icon(Icons.exit_to_app)),
+                    child: Visibility(
+                      visible: _providerPrincipal!.user.rol == 1 ? true : false,
+                      child: Badge(
+                          isLabelVisible:
+                              _providerPrincipal!.listNotification!.isNotEmpty
+                                  ? true
+                                  : false,
+                          backgroundColor:
+                              _providerPrincipal!.listNotification!.isNotEmpty
+                                  ? Colors.red
+                                  : Colors.white,
+                          textColor:
+                              _providerPrincipal!.listNotification!.isNotEmpty
+                                  ? Colors.red
+                                  : Colors.white,
+                          textStyle: const TextStyle(
+                              color: Colors.white, fontSize: 10),
+                          label: Text(_providerPrincipal!
+                              .listNotification!.length
+                              .toString()),
+                          child: const Icon(Icons.notifications)),
+                    )),
               )
             ],
           ),

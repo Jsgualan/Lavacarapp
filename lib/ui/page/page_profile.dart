@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lavacar/ui/page/page_contact.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/provider_principal.dart';
@@ -73,7 +74,7 @@ class PageProfile extends StatelessWidget {
           margin: const EdgeInsets.only(top: 10),
           height: 40,
           padding: const EdgeInsets.only(left: 20, right: 20),
-          child: GlobalWidget().styleTextTitle(GlobalLabel.textAdmin,
+          child: GlobalWidget().styleTextTitle(GlobalLabel.textMenu,
               GlobalColor.colorLetterTitle, 0.0, TextAlign.left),
         ),
         GestureDetector(
@@ -82,74 +83,118 @@ class PageProfile extends StatelessWidget {
             Navigator.of(GlobalFunction.contextGlobal.currentContext!)
                 .pushNamed(PageListOperator.route, arguments: {'type': 3});
           },
-          child: Container(
-            margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-            color: Colors.transparent,
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: GlobalWidget().styleTextSubTitle(
-                      GlobalLabel.textMenuOperator,
-                      GlobalColor.colorLetterSubTitle,
-                      0.0,
-                      TextAlign.left),
-                ),
-                const Expanded(
-                    flex: 0, child: Icon(Icons.navigate_next_rounded))
-              ],
+          child: Visibility(
+            visible: _providerPrincipal!.user.rol == 1 ? true : false,
+            child: Container(
+              margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
+              color: Colors.transparent,
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: GlobalWidget().styleTextSubTitle(
+                        GlobalLabel.textMenuOperator,
+                        GlobalColor.colorLetterSubTitle,
+                        0.0,
+                        TextAlign.left),
+                  ),
+                  const Expanded(
+                      flex: 0, child: Icon(Icons.navigate_next_rounded))
+                ],
+              ),
             ),
           ),
         ),
-        GlobalWidget().divider(),
         GestureDetector(
           onTap: () {
             GlobalFunction().closeView();
             Navigator.of(GlobalFunction.contextGlobal.currentContext!)
                 .pushNamed(PageService.route);
           },
-          child: Container(
-            margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-            color: Colors.transparent,
-            child: Row(
+          child: Visibility(
+            visible: _providerPrincipal!.user.rol == 1 ? true : false,
+            child: Column(
               children: [
-                Expanded(
-                  flex: 1,
-                  child: GlobalWidget().styleTextSubTitle(
-                      GlobalLabel.textService,
-                      GlobalColor.colorLetterSubTitle,
-                      0.0,
-                      TextAlign.left),
+                Container(
+                  margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
+                  color: Colors.transparent,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: GlobalWidget().styleTextSubTitle(
+                            GlobalLabel.textService,
+                            GlobalColor.colorLetterSubTitle,
+                            0.0,
+                            TextAlign.left),
+                      ),
+                      const Expanded(
+                          flex: 0, child: Icon(Icons.navigate_next_rounded))
+                    ],
+                  ),
                 ),
-                const Expanded(
-                    flex: 0, child: Icon(Icons.navigate_next_rounded))
+                GlobalWidget().divider(),
               ],
             ),
           ),
         ),
-        GlobalWidget().divider(),
+        GestureDetector(
+          onTap: () {
+            GlobalFunction().closeView();
+            Navigator.of(GlobalFunction.contextGlobal.currentContext!)
+                .pushNamed(PageContact.route);
+          },
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
+                color: Colors.transparent,
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: GlobalWidget().styleTextSubTitle(
+                          GlobalLabel.textContact,
+                          GlobalColor.colorLetterSubTitle,
+                          0.0,
+                          TextAlign.left),
+                    ),
+                    const Expanded(
+                        flex: 0, child: Icon(Icons.navigate_next_rounded))
+                  ],
+                ),
+              ),
+              GlobalWidget().divider(),
+            ],
+          ),
+        ),
         GestureDetector(
           onTap: () {
             GlobalFunction().closeView();
             _providerPrincipal!.logOut();
           },
-          child: Container(
-            margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-            color: Colors.transparent,
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: GlobalWidget().styleTextSubTitle(
-                      GlobalLabel.textLogOut,
-                      GlobalColor.colorLetterSubTitle,
-                      0.0,
-                      TextAlign.left),
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
+                color: Colors.transparent,
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: GlobalWidget().styleTextSubTitle(
+                          GlobalLabel.textLogOut,
+                          GlobalColor.colorLetterSubTitle,
+                          0.0,
+                          TextAlign.left),
+                    ),
+                    const Expanded(
+                        flex: 0, child: Icon(Icons.navigate_next_rounded))
+                  ],
                 ),
-                const Expanded(
-                    flex: 0, child: Icon(Icons.navigate_next_rounded))
-              ],
-            ),
+              ),
+              GlobalWidget().divider(),
+            ],
           ),
         ),
       ],
