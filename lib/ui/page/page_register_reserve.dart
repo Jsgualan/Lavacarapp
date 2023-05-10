@@ -318,6 +318,7 @@ class PageRegisterReserve extends StatelessWidget {
     );
   }
 
+
   Widget buttonSendReserve() {
     return Container(
       margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
