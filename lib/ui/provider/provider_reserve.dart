@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:lavacar/ui/provider/provider_service.dart';
 import '../../data/model/response_reserve.dart';
 import '../../domain/entities/booking.dart';
 import '../../domain/entities/hour.dart';
@@ -19,7 +20,6 @@ class ProviderReserve with ChangeNotifier {
   TextEditingController editModel = TextEditingController();
   TextEditingController editColor = TextEditingController();
   TextEditingController editTypeVehicle = TextEditingController();
-  TextEditingController editDescriptionService = TextEditingController();
   int? _typeService;
   double? _latitude;
   double? _longitude;
@@ -34,9 +34,17 @@ class ProviderReserve with ChangeNotifier {
   String? _idOperator = '';
   String? _selectedNameOperator = '';
   List<Booking>? listReservePendingAccepted = [];
+  String? _serviceActive = '';
 
   /// Construct
   ProviderReserve(this.apiInterface);
+
+  String get serviceActive => _serviceActive!;
+
+  set serviceActive(String value) {
+    _serviceActive = value;
+    notifyListeners();
+  }
 
   String get selectedNameOperator => _selectedNameOperator!;
 
@@ -202,7 +210,7 @@ class ProviderReserve with ChangeNotifier {
     if (editTypeVehicle.text.trim().isEmpty) {
       return GlobalFunction().messageAlert(GlobalLabel.textWriteTypeVehicle);
     }
-    if (editDescriptionService.text.trim().isEmpty) {
+    if (_serviceActive!.isEmpty) {
       return GlobalFunction()
           .messageAlert(GlobalLabel.textWriteDescriptionService);
     }
@@ -258,7 +266,7 @@ class ProviderReserve with ChangeNotifier {
   }
 
   /// Send reserved
-  sendReserved(ProviderPrincipal providerPrincipal) {
+  sendReserved(ProviderPrincipal providerPrincipal, ProviderService providerService) {
     if (editName.text.trim().isEmpty) {
       return GlobalFunction().messageAlert('Ingresa tu nombre');
     }
@@ -281,10 +289,7 @@ class ProviderReserve with ChangeNotifier {
     if (editTypeVehicle.text.trim().isEmpty) {
       return GlobalFunction().messageAlert('Ingresa el tipo de vehículo');
     }
-    if (editDescriptionService.text.trim().isEmpty) {
-      return GlobalFunction()
-          .messageAlert('Ingresa la descripcion del vehículo');
-    }
+
     if (!stateCheckHome && !stateCheckBusiness) {
       return GlobalFunction().messageAlert('Selecciona el lugar del servicio');
     }
@@ -293,8 +298,14 @@ class ProviderReserve with ChangeNotifier {
         return GlobalFunction().messageAlert('Fija la ubicación del domicilio');
       }
     }
+
     if (_selectedDate!.isEmpty) {
       return GlobalFunction().messageAlert('Selecciona la fecha de la reserva');
+    }
+
+    if (_serviceActive!.isEmpty) {
+      return GlobalFunction()
+          .messageAlert('Selecciona el tipo de servicio');
     }
 
     if (providerPrincipal.user.rol == 1) {
@@ -308,7 +319,7 @@ class ProviderReserve with ChangeNotifier {
         editColor.text.trim(),
         _selectedDate!,
         _selectedHour!,
-        editDescriptionService.text.trim(),
+        _serviceActive!.trim(),
         _idOperator!,
         _selectedNameOperator!,
         providerPrincipal.user.idUser!,
@@ -324,6 +335,7 @@ class ProviderReserve with ChangeNotifier {
       if (code != 1) return;
       GlobalFunction().messageAlert(data);
       GlobalFunction().closeView();
+      providerService.cleanSelectedActive();
       providerPrincipal.addReserve(
           this,
           GlobalFunction()
@@ -335,7 +347,7 @@ class ProviderReserve with ChangeNotifier {
   }
 
   /// Edit reserved
-  editReserve(ProviderPrincipal providerPrincipal) {
+  editReserve(ProviderPrincipal providerPrincipal, ProviderService providerService) {
     if (editName.text.trim().isEmpty) {
       return GlobalFunction().messageAlert('Ingresa tu nombre');
     }
@@ -358,10 +370,6 @@ class ProviderReserve with ChangeNotifier {
     if (editTypeVehicle.text.trim().isEmpty) {
       return GlobalFunction().messageAlert('Ingresa el tipo de vehículo');
     }
-    if (editDescriptionService.text.trim().isEmpty) {
-      return GlobalFunction()
-          .messageAlert('Ingresa la descripcion del vehículo');
-    }
     if (!stateCheckHome && !stateCheckBusiness) {
       return GlobalFunction().messageAlert('Selecciona el lugar del servicio');
     }
@@ -370,8 +378,14 @@ class ProviderReserve with ChangeNotifier {
         return GlobalFunction().messageAlert('Fija la ubicación del domicilio');
       }
     }
+
     if (_selectedDate!.isEmpty) {
       return GlobalFunction().messageAlert('Selecciona la fecha de la reserva');
+    }
+
+    if (_serviceActive!.trim().isEmpty) {
+      return GlobalFunction()
+          .messageAlert('Selecciona el tipo de servicio');
     }
 
     if (providerPrincipal.user.rol == 1) {
@@ -386,7 +400,7 @@ class ProviderReserve with ChangeNotifier {
         editColor.text.trim(),
         _selectedDate!,
         _selectedHour!,
-        editDescriptionService.text.trim(),
+        _serviceActive!.trim(),
         _idOperator!,
         _selectedNameOperator!,
         providerPrincipal.user.idUser!,
@@ -402,6 +416,7 @@ class ProviderReserve with ChangeNotifier {
       if (code != 1) return;
       GlobalFunction().messageAlert(data);
       GlobalFunction().closeView();
+      providerService.cleanSelectedActive();
       providerPrincipal.addReserve(
           this,
           GlobalFunction()
@@ -462,8 +477,6 @@ class ProviderReserve with ChangeNotifier {
     editModel.text = providerPrincipal.selectedBooking.model!;
     editColor.text = providerPrincipal.selectedBooking.color!;
     editTypeVehicle.text = providerPrincipal.selectedBooking.typeVehicle!;
-    editDescriptionService.text =
-        providerPrincipal.selectedBooking.descriptionService!;
     if (providerPrincipal.selectedBooking.typeService == 1) {
       stateCheckBusiness = true;
     } else {
@@ -488,7 +501,6 @@ class ProviderReserve with ChangeNotifier {
     editModel.clear();
     editColor.clear();
     editTypeVehicle.clear();
-    editDescriptionService.clear();
     _stateCheckHome = false;
     _stateCheckBusiness = false;
     _selectedDate = '';

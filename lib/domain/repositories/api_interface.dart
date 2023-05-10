@@ -108,4 +108,16 @@ abstract class ApiInterface {
 
   Future responseSaveToken(String idUser, String token,
       VoidCallback? Function(int code, dynamic data) callback);
+
+  Future responseListService(
+      VoidCallback? Function(int code, dynamic data) callback);
+
+  Future responseSaveService(
+      String name, VoidCallback? Function(int code, dynamic data) callback);
+
+  Future responseDeleteService(String idService,
+      VoidCallback? Function(int code, dynamic data) callback);
+
+  Future responseEditService(String idService, String name,
+      VoidCallback? Function(int code, dynamic data) callback);
 }

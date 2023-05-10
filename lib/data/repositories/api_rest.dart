@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:lavacar/data/model/response_service.dart';
 
 import '../../domain/repositories/api_interface.dart';
 import '../../ui/util/global_function.dart';
@@ -460,6 +461,97 @@ class ApiRest implements ApiInterface {
       final response = await dio.put(url, data: data);
       if (kDebugMode) {
         print('RESULT SAVE TOKEN >>> $response');
+      }
+      callback(response.data['en'], response.data['m']);
+    } catch (e) {
+      GlobalFunction().messageAlert(GlobalLabel.textMessageError);
+    }
+  }
+
+  /// Get list service
+  @override
+  Future responseListService(
+      VoidCallback? Function(int code, dynamic data) callback) async {
+    const url = "${GlobalLabel.url}getService/";
+    try {
+      final response = await dio.get(url);
+      if (kDebugMode) {
+        print('RESULT LIST SERVICE >>> $response');
+      }
+      if (response.data == null) {
+        return GlobalFunction().messageAlert(GlobalLabel.textMessageError);
+      }
+      if (response.data['en'] == 1) {
+        callback(response.data['en'], ResponseService.fromMap(response.data));
+      } else {
+        callback(response.data['en'], response.data['m']);
+      }
+    } catch (e) {
+      GlobalFunction().messageAlert(GlobalLabel.textMessageError);
+    }
+  }
+
+  /// Save service
+  @override
+  Future responseSaveService(String name,
+      VoidCallback? Function(int t, dynamic data) callback) async {
+    const url = "${GlobalLabel.url}saveService";
+    final data = {
+      'idService': GlobalFunction().generateId(),
+      'name': name,
+    };
+    try {
+      final response = await dio.post(url, data: data);
+      if (kDebugMode) {
+        print('RESULT SAVE SERVICE >>> $response');
+      }
+      if (response.data == null) {
+        return GlobalFunction().messageAlert(GlobalLabel.textMessageError);
+      }
+      callback(response.data['en'], response.data['m']);
+    } catch (e) {
+      GlobalFunction().messageAlert(GlobalLabel.textMessageError);
+    }
+  }
+
+  /// Delete service
+  @override
+  Future responseDeleteService(String idService,
+      VoidCallback? Function(int code, dynamic data) callback) async {
+    final url = "${GlobalLabel.url}deleteService/$idService";
+    final data = {
+      'state': false,
+    };
+    try {
+      final response = await dio.put(url, data: data);
+      if (kDebugMode) {
+        print('RESULT DELETE SERVICE >>> $response');
+      }
+      if (response.data == null) {
+        return GlobalFunction().messageAlert(GlobalLabel.textMessageError);
+      }
+      callback(response.data['en'], response.data['m']);
+    } catch (e) {
+      GlobalFunction().messageAlert(GlobalLabel.textMessageError);
+    }
+  }
+
+  /// Edit service
+  @override
+  Future responseEditService(String idService, String name,
+      VoidCallback? Function(int t, dynamic data) callback) async {
+    final url = "${GlobalLabel.url}editService/$idService";
+    final data = {
+      'id': idService,
+      'name': name,
+    };
+    try {
+      final response = await dio.put(url, data: data);
+      if (kDebugMode) {
+        print('RESULT EDIT SERVICE >>> $response');
+      }
+      if (response.data == null) {
+        return GlobalFunction().messageAlert(GlobalLabel.textMessageError);
       }
       callback(response.data['en'], response.data['m']);
     } catch (e) {

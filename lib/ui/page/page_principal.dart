@@ -1,5 +1,6 @@
 import 'package:calendar_agenda/calendar_agenda.dart';
 import 'package:flutter/material.dart';
+import 'package:lavacar/ui/provider/provider_service.dart';
 import 'package:provider/provider.dart';
 
 import '../../domain/entities/booking.dart';
@@ -24,6 +25,7 @@ class PagePrincipal extends StatefulWidget {
 class _PagePrincipalState extends State<PagePrincipal> {
   ProviderPrincipal? _providerPrincipal;
   ProviderReserve? _providerReserve;
+  ProviderService? _providerService;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -36,12 +38,14 @@ class _PagePrincipalState extends State<PagePrincipal> {
     if (_providerPrincipal == null) {
       _providerPrincipal = Provider.of<ProviderPrincipal>(context);
       _providerReserve = Provider.of<ProviderReserve>(context);
+      _providerService = Provider.of<ProviderService>(context);
       _providerPrincipal!.dateTimeSelected = GlobalFunction().dateNow;
       _providerPrincipal!.addReserve(
           _providerReserve!,
           GlobalFunction().formatterDate.format(GlobalFunction().dateNow),
           GlobalFunction().dateNow);
       _providerPrincipal!.notificationPush(_providerReserve!);
+      _providerService!.getListService();
     }
 
     return AnnotatedRegion(

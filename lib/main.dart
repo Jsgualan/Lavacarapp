@@ -1,4 +1,4 @@
-import 'dart:io';
+
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:lavacar/ui/provider/provider_service.dart';
 import 'package:provider/provider.dart';
 
 import 'data/repositories/api_rest.dart';
@@ -19,6 +20,7 @@ import 'ui/page/page_operator.dart';
 import 'ui/page/page_principal.dart';
 import 'ui/page/page_register_reserve.dart';
 import 'ui/page/page_register_user.dart';
+import 'ui/page/page_service.dart';
 import 'ui/page/page_splash.dart';
 import 'ui/provider/providerMapa.dart';
 import 'ui/provider/provider_log_in.dart';
@@ -85,6 +87,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => ProviderOperator(ApiRest())),
         ChangeNotifierProvider(create: (_) => ProviderUser(ApiRest())),
         ChangeNotifierProvider(create: (_) => ProviderMap()),
+        ChangeNotifierProvider(create: (_) => ProviderService(ApiRest())),
       ],
       child: MaterialApp(
           localizationsDelegates: const [
@@ -116,6 +119,7 @@ class _MyAppState extends State<MyApp> {
             PageNotification.route: (_) => PageNotification(),
             PageCalendar.route: (_) => PageCalendar(),
             PageMap.route: (_) => PageMap(),
+            PageService.route: (_) => PageService(),
           }),
     );
   }

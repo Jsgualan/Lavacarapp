@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
+import '../../domain/entities/service.dart';
 import '../provider/providerMapa.dart';
 import '../provider/provider_principal.dart';
 import '../provider/provider_reserve.dart';
+import '../provider/provider_service.dart';
 import '../util/global_color.dart';
 import '../util/global_function.dart';
 import '../util/global_label.dart';
@@ -17,6 +19,7 @@ import 'page_map.dart';
 class PageRegisterReserve extends StatelessWidget {
   static const route = GlobalLabel.routeRegisterReserve;
   ProviderReserve? _providerReserve;
+  ProviderService? _providerService;
   ProviderMap? _providerMap;
   ProviderPrincipal? _providerPrincipal;
   int? type;
@@ -26,6 +29,7 @@ class PageRegisterReserve extends StatelessWidget {
     if (_providerReserve == null) {
       _providerReserve = Provider.of<ProviderReserve>(context);
       _providerMap = Provider.of<ProviderMap>(context);
+      _providerService = Provider.of<ProviderService>(context);
       _providerPrincipal = Provider.of<ProviderPrincipal>(context);
 
       /// 1: Save reserve
@@ -139,14 +143,6 @@ class PageRegisterReserve extends StatelessWidget {
                       Icons.car_repair_rounded,
                       45),
                   GlobalWidget().divider(),
-                  GlobalWidget().textField(
-                      TextInputType.text,
-                      11,
-                      _providerReserve!.editDescriptionService,
-                      GlobalLabel.textDescriptionService,
-                      Icons.list_outlined,
-                      45),
-                  GlobalWidget().divider(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -172,7 +168,6 @@ class PageRegisterReserve extends StatelessWidget {
                       ),
                     ],
                   ),
-                  GlobalWidget().divider(),
                   GestureDetector(
                     onTap: () {
                       Gps().checkGPS(_providerMap!).then((value) {
@@ -219,6 +214,7 @@ class PageRegisterReserve extends StatelessWidget {
                       ),
                     ),
                   ),
+                  GlobalWidget().divider(),
                   GestureDetector(
                     onTap: () {
                       _providerPrincipal!.resetListHour(_providerReserve!);
@@ -261,6 +257,7 @@ class PageRegisterReserve extends StatelessWidget {
                     ),
                   ),
                   GlobalWidget().divider(),
+                  listService(),
                   const SizedBox(height: 10),
                   GestureDetector(
                     onTap: () {
@@ -269,7 +266,11 @@ class PageRegisterReserve extends StatelessWidget {
                               arguments: {'type': type == 1 ? 2 : 1});
                     },
                     child: Visibility(
-                      visible: type != 3 ? _providerPrincipal!.user.rol == 1 ? true : false: false,
+                      visible: type != 3
+                          ? _providerPrincipal!.user.rol == 1
+                              ? true
+                              : false
+                          : false,
                       child: Container(
                         height: 50,
                         alignment: Alignment.centerLeft,
@@ -329,9 +330,67 @@ class PageRegisterReserve extends StatelessWidget {
         )),
         child: GlobalWidget().styleTextButton(GlobalLabel.buttonSendReserve),
         onPressed: () {
-          _providerReserve!.sendReserved(_providerPrincipal!);
+          _providerReserve!
+              .sendReserved(_providerPrincipal!, _providerService!);
         },
       ),
+    );
+  }
+
+  Widget listService() {
+    return Visibility(
+      visible: _providerService!.listService!.isNotEmpty,
+      child: Container(
+        margin: const EdgeInsets.only(top: 20, bottom: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(left: 10),
+              child: GlobalWidget().styleTextTitle('Servicio ha realizar',
+                  GlobalColor.colorLetterTitle, 0.0, TextAlign.left),
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              itemCount: _providerService!.listService!.length,
+              itemBuilder: (context, index) {
+                return itemService(
+                    _providerService!.listService![index], index + 1);
+              },
+            ),
+            GlobalWidget().divider()
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget itemService(Service service, int index) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          flex: 1,
+          child: Container(
+            margin: const EdgeInsets.only(left: 10),
+            child: GlobalWidget().styleTextSubTitle(service.name!,
+                GlobalColor.colorLetterSubTitle, 16, TextAlign.left),
+          ),
+        ),
+        Expanded(
+          flex: 0,
+          child: Checkbox(
+            checkColor: Colors.white,
+            value: service.check,
+            shape: const CircleBorder(),
+            onChanged: (bool? value) {
+              _providerService!.checkService(_providerReserve!, service.id!);
+            },
+          ),
+        ),
+      ],
     );
   }
 
@@ -347,7 +406,7 @@ class PageRegisterReserve extends StatelessWidget {
         )),
         child: GlobalWidget().styleTextButton(GlobalLabel.buttonEdit),
         onPressed: () {
-          _providerReserve!.editReserve(_providerPrincipal!);
+          _providerReserve!.editReserve(_providerPrincipal!, _providerService!);
         },
       ),
     );

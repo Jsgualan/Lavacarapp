@@ -7,6 +7,7 @@ import '../util/global_function.dart';
 import '../util/global_label.dart';
 import '../util/global_widget.dart';
 import 'page_list_operator.dart';
+import 'page_service.dart';
 
 class PageProfile extends StatelessWidget {
   static const route = GlobalLabel.routeProfile;
@@ -79,8 +80,7 @@ class PageProfile extends StatelessWidget {
           onTap: () {
             GlobalFunction().closeView();
             Navigator.of(GlobalFunction.contextGlobal.currentContext!)
-                .pushNamed(PageListOperator.route,
-                arguments: {'type': 3});
+                .pushNamed(PageListOperator.route, arguments: {'type': 3});
           },
           child: Container(
             margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
@@ -101,30 +101,32 @@ class PageProfile extends StatelessWidget {
             ),
           ),
         ),
-        // GlobalWidget().divider(),
-        // GestureDetector(
-        //   onTap: () {
-        //     GlobalFunction().closeView();
-        //   },
-        //   child: Container(
-        //     margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-        //     color: Colors.transparent,
-        //     child: Row(
-        //       children: [
-        //         Expanded(
-        //           flex: 1,
-        //           child: GlobalWidget().styleTextSubTitle(
-        //               GlobalLabel.textMenuUser,
-        //               GlobalColor.colorLetterSubTitle,
-        //               0.0,
-        //               TextAlign.left),
-        //         ),
-        //         const Expanded(
-        //             flex: 0, child: Icon(Icons.navigate_next_rounded))
-        //       ],
-        //     ),
-        //   ),
-        // ),
+        GlobalWidget().divider(),
+        GestureDetector(
+          onTap: () {
+            GlobalFunction().closeView();
+            Navigator.of(GlobalFunction.contextGlobal.currentContext!)
+                .pushNamed(PageService.route);
+          },
+          child: Container(
+            margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
+            color: Colors.transparent,
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: GlobalWidget().styleTextSubTitle(
+                      GlobalLabel.textService,
+                      GlobalColor.colorLetterSubTitle,
+                      0.0,
+                      TextAlign.left),
+                ),
+                const Expanded(
+                    flex: 0, child: Icon(Icons.navigate_next_rounded))
+              ],
+            ),
+          ),
+        ),
         GlobalWidget().divider(),
         GestureDetector(
           onTap: () {

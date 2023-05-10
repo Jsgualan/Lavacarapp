@@ -15,6 +15,7 @@ class GlobalLabel {
   static const routeCalendar = 'routeCalendar';
   static const routeMap = 'routeMap';
   static const routeProfile = 'routeProfile';
+  static const routeService = 'routeService';
 
   /// Route component
   static const directionImageInternal = 'assets/image/';
@@ -35,14 +36,18 @@ class GlobalLabel {
   static const textAdd = 'Agregar';
   static const textReserve = 'Reserva';
   static const textAddOperator = 'Operador';
+  static const textAddService = 'Servicios';
   static const textAddUser = 'Registro';
   static const textHome = 'Domicilio';
   static const textBusiness = 'Empresa';
   static const textTitleReserve = 'Solicita una reserva de servicio';
   static const textTitleOperator = 'Agregar operador';
+  static const textTitleService = 'Agregar servicios';
   static const textTitleRegisterUser = 'Regístrate';
   static const textDescriptionRegisterUser =
       'Ingresa los datos solicitados en el formulario de registro.';
+  static const textDescriptionAddService =
+      'Ingresa los servicios que ofrece la empresa a los usuarios.';
   static const textDescriptionOperator =
       'Ingrese la  información requerida en el formulario de registro para activar un nuevo operador.';
   static const textDescriptionReserve =
@@ -101,22 +106,28 @@ class GlobalLabel {
   static const textQuestionDecline = '¿Está seguro de rechazar la solicitud?';
   static const textOperatorAssigned = 'Operario asignado';
   static const textDeleteReserve = '¿Está seguro de eliminar la reserva?';
-  static const textQuestionFinishReserve = '¿Está seguro de finalizar la reserva?';
+  static const textQuestionFinishReserve =
+      '¿Está seguro de finalizar la reserva?';
   static const textWait = 'Espere un momento...';
   static const textWelcome = 'Bienvenido';
   static const textAdmin = 'Administración';
-  static const textMenuOperator= 'Operarios';
-  static const textMenuUser= 'Usuarios';
-  static const textQuestionLogOut= '¿Esta seguro de querer cerrar sesión?';
-  static const textLogOut= 'Cerrar sesión';
-  static const textMenuOption= 'Menú de opciones';
-  static const textAssignedOperator= 'Asignar operador';
-  static const textEditOperator= 'Editar operador';
-  static const textDeleteOperator= 'Eliminar operador';
-  static const textNoResult= 'No hay resultados que mostrar';
-  static const textQuestionDeleteOperator= '¿Está seguro de eliminar al operador?';
-  static const textCancelProcess= 'EL proceso ha sido cancelado';
-  static const textNotData= 'No hemos podido obtener los datos';
+  static const textMenuOperator = 'Operarios';
+  static const textMenuUser = 'Usuarios';
+  static const textQuestionLogOut = '¿Esta seguro de querer cerrar sesión?';
+  static const textLogOut = 'Cerrar sesión';
+  static const textMenuOption = 'Menú de opciones';
+  static const textAssignedOperator = 'Asignar operador';
+  static const textEditOperator = 'Editar operador';
+  static const textDeleteService = 'Eliminar servicio';
+  static const textDeleteOperator = 'Eliminar operador';
+  static const textNoResult = 'No hay resultados que mostrar';
+  static const textQuestionDeleteOperator =
+      '¿Está seguro de eliminar al operador?';
+  static const textCancelProcess = 'EL proceso ha sido cancelado';
+  static const textNotData = 'No hemos podido obtener los datos';
+  static const textService = 'Servicio';
+  static const textEditService = 'Editar servicio';
+  static const textInsertService = 'Ingresa el servicio';
 
   /// Text button
   static const buttonLogIn = 'Iniciar sesión';
@@ -124,6 +135,8 @@ class GlobalLabel {
   static const buttonNextNoUser = 'Continuar sin usuario';
   static const buttonSendReserve = 'Reservar';
   static const buttonSaveOperator = 'Registrar operador';
+  static const buttonSaveService = 'Registrar servicio';
+  static const buttonEditService = 'Editar servicio';
   static const buttonSaveUser = 'Registrar usuario';
   static const buttonEdit = 'Editar';
   static const buttonDeleteReserve = 'Eliminar';
