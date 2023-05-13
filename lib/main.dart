@@ -22,7 +22,7 @@ import 'ui/page/page_register_reserve.dart';
 import 'ui/page/page_register_user.dart';
 import 'ui/page/page_service.dart';
 import 'ui/page/page_splash.dart';
-import 'ui/provider/providerMapa.dart';
+import 'ui/provider/providerMap.dart';
 import 'ui/provider/provider_log_in.dart';
 import 'ui/provider/provider_operator.dart';
 import 'ui/provider/provider_principal.dart';

@@ -1,16 +1,16 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
-import '../provider/providerMapa.dart';
+import '../provider/providerMap.dart';
 import '../provider/provider_reserve.dart';
 import '../util/global_color.dart';
 import '../util/global_function.dart';
 import '../util/global_label.dart';
 import '../util/global_widget.dart';
 import '../util/style_map.dart';
-
 
 class PageMap extends StatefulWidget {
   static const route = GlobalLabel.routeMap;
@@ -43,7 +43,7 @@ class _PageMapState extends State<PageMap> {
                   color: GlobalColor.colorBackground,
                   child: Stack(
                     children: [
-                      // googleMap(),
+                      googleMap(),
                       pinLocation(),
                       setLocation(),
                       myLocation()
@@ -55,8 +55,9 @@ class _PageMapState extends State<PageMap> {
   Widget googleMap() {
     return GoogleMap(
       minMaxZoomPreference: const MinMaxZoomPreference(15, 16.8),
-      initialCameraPosition: CameraPosition(
-        target: GlobalFunction().positionInitial,
+      initialCameraPosition: const CameraPosition(
+        // target: GlobalFunction().positionInitial,
+        target: LatLng(-4.0228577,-79.219289),
         zoom: 16.8,
       ),
       onMapCreated: (GoogleMapController controller) {
@@ -64,8 +65,9 @@ class _PageMapState extends State<PageMap> {
         _providerMap!.googleMapController.setMapStyle(jsonEncode(styleMap));
         _providerMap!.googleMapController.animateCamera(
           CameraUpdate.newCameraPosition(
-            CameraPosition(
-                target: GlobalFunction().positionInitial, zoom: 16.8),
+            const CameraPosition(
+                // target: GlobalFunction().positionInitial, zoom: 16.8),
+                target: LatLng(-4.0228577,-79.219289), zoom: 16.8),
           ),
         );
       },
@@ -79,7 +81,6 @@ class _PageMapState extends State<PageMap> {
       },
     );
   }
-
 
   Widget myLocation() {
     return Align(

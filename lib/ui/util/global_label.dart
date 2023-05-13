@@ -131,7 +131,7 @@ class GlobalLabel {
   static const textService = 'Servicio';
   static const textEditService = 'Editar servicio';
   static const textInsertService = 'Ingresa el servicio';
-  static const textServicePerform = 'Ingresa el servicio';
+  static const textServicePerform = 'Servicios disponibles';
   static const textMission =
       'Nuestro reto diario es servirte como te mereces; proporcionándole un servicio profesional, de calidad y de precio razonable, sin perder nuestra característica de rapidez.';
   static const textVision =

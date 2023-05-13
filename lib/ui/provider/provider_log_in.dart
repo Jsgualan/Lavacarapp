@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../data/model/response_user.dart';
@@ -58,7 +61,9 @@ class ProviderLogIn with ChangeNotifier {
   getVersionApplication() async {
     await Future.delayed(const Duration(milliseconds: 300));
     GlobalPreference.getDataDispositive().then((data) {
-      version = '${GlobalLabel.textVersion} ${data!.version!}';
+      if (!kIsWeb) {
+        version = '${GlobalLabel.textVersion} ${data!.version!}';
+      }
     });
     notifyListeners();
   }
@@ -123,7 +128,8 @@ class ProviderLogIn with ChangeNotifier {
   }
 
   /// Get data user with login google
-  loginGoogle(ProviderPrincipal providerPrincipal, ProviderUser providerUser) async {
+  loginGoogle(
+      ProviderPrincipal providerPrincipal, ProviderUser providerUser) async {
     googleSignIn = GoogleSignIn();
     googleSignIn!.isSignedIn().then((value) {
       if (value) {
@@ -145,7 +151,8 @@ class ProviderLogIn with ChangeNotifier {
         final UserCredential userCredential =
             await auth.signInWithCredential(credential);
         if (userCredential.user != null) {
-          apiInterface.responseCheckUser(userCredential.user!.email!, (code, data) {
+          apiInterface.responseCheckUser(userCredential.user!.email!,
+              (code, data) {
             if (code == 1) {
               GlobalFunction().hideProgress();
               ResponseUser responseUser = data;
@@ -156,7 +163,8 @@ class ProviderLogIn with ChangeNotifier {
               GlobalPreference().setStateLogin(true);
               providerPrincipal.user = responseUser.u!;
               Navigator.of(GlobalFunction.contextGlobal.currentContext!)
-                  .pushNamedAndRemoveUntil(PagePrincipal.route, (route) => false);
+                  .pushNamedAndRemoveUntil(
+                      PagePrincipal.route, (route) => false);
             } else {
               GlobalFunction().hideProgress();
               providerUser.editEmail.text = userCredential.user!.email!;
@@ -171,5 +179,4 @@ class ProviderLogIn with ChangeNotifier {
       }
     }
   }
-
 }

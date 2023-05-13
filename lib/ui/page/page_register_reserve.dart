@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../domain/entities/service.dart';
-import '../provider/providerMapa.dart';
+import '../provider/providerMap.dart';
 import '../provider/provider_principal.dart';
 import '../provider/provider_reserve.dart';
 import '../provider/provider_service.dart';
@@ -170,11 +170,12 @@ class PageRegisterReserve extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Gps().checkGPS(_providerMap!).then((value) {
-                        if (value) {
-                          GlobalWidget().animationNavigatorView(PageMap());
-                        }
-                      });
+                      GlobalWidget().animationNavigatorView(PageMap());
+                      // Gps().checkGPS(_providerMap!).then((value) {
+                      //   if (value) {
+                      //     GlobalWidget().animationNavigatorView(PageMap());
+                      //   }
+                      // });
                     },
                     child: Visibility(
                       visible: _providerReserve!.stateCheckHome,
@@ -351,6 +352,7 @@ class PageRegisterReserve extends StatelessWidget {
               child: GlobalWidget().styleTextTitle(GlobalLabel.textServicePerform,
                   GlobalColor.colorLetterTitle, 0.0, TextAlign.left),
             ),
+            const SizedBox(height: 10),
             ListView.builder(
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),

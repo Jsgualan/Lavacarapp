@@ -3,7 +3,7 @@ import 'package:geolocator/geolocator.dart' as geolocation;
 import 'package:permission_handler/permission_handler.dart' as permit;
 import 'package:permission_handler/permission_handler.dart';
 
-import '../provider/providerMapa.dart';
+import '../provider/providerMap.dart';
 import 'global_function.dart';
 import 'global_label.dart';
 
