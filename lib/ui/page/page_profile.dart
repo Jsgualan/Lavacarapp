@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:lavacar/ui/page/page_contact.dart';
 import 'package:provider/provider.dart';
 
+import '../provider/provider_log_in.dart';
 import '../provider/provider_principal.dart';
 import '../util/global_color.dart';
 import '../util/global_function.dart';
 import '../util/global_label.dart';
 import '../util/global_widget.dart';
+import 'page_contact.dart';
 import 'page_list_operator.dart';
 import 'page_service.dart';
 
 class PageProfile extends StatelessWidget {
   static const route = GlobalLabel.routeProfile;
   ProviderPrincipal? _providerPrincipal;
+  ProviderLogIn? _providerLogIn;
 
   @override
   Widget build(BuildContext context) {
     _providerPrincipal ??= Provider.of<ProviderPrincipal>(context);
+    _providerLogIn ??= Provider.of<ProviderLogIn>(context);
 
     return AnnotatedRegion(
         value: GlobalWidget().colorBarView(GlobalColor.colorWhite),
@@ -171,7 +174,7 @@ class PageProfile extends StatelessWidget {
         GestureDetector(
           onTap: () {
             GlobalFunction().closeView();
-            _providerPrincipal!.logOut();
+            _providerPrincipal!.logOut(_providerLogIn!);
           },
           child: Column(
             children: [

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -23,7 +21,7 @@ class ProviderLogIn with ChangeNotifier {
   bool? _stateShowEditPassword = true;
   String? _version = '1.0.0';
   FirebaseAuth auth = FirebaseAuth.instance;
-  GoogleSignIn? googleSignIn;
+  GoogleSignIn? googleSignIn = GoogleSignIn();
 
   ProviderLogIn(this.apiInterface);
 
@@ -130,7 +128,6 @@ class ProviderLogIn with ChangeNotifier {
   /// Get data user with login google
   loginGoogle(
       ProviderPrincipal providerPrincipal, ProviderUser providerUser) async {
-    googleSignIn = GoogleSignIn();
     googleSignIn!.isSignedIn().then((value) {
       if (value) {
         googleSignIn!.disconnect();
@@ -154,6 +151,7 @@ class ProviderLogIn with ChangeNotifier {
           apiInterface.responseCheckUser(userCredential.user!.email!,
               (code, data) {
             if (code == 1) {
+              googleSignIn!.disconnect();
               GlobalFunction().hideProgress();
               ResponseUser responseUser = data;
               if (code != 1) {
@@ -166,6 +164,7 @@ class ProviderLogIn with ChangeNotifier {
                   .pushNamedAndRemoveUntil(
                       PagePrincipal.route, (route) => false);
             } else {
+              googleSignIn!.disconnect();
               GlobalFunction().hideProgress();
               providerUser.editEmail.text = userCredential.user!.email!;
               GlobalWidget().animationNavigatorView(PageRegisterUser());

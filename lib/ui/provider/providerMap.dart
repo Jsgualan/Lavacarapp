@@ -1,18 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ProviderMap with ChangeNotifier {
   GoogleMapController? _googleMapController;
-  Position _positionDefault = const Position(
-      longitude: -79.201673,
-      latitude: -3.996744,
-      timestamp: null,
-      accuracy: 0.0,
-      altitude: 0.0,
-      heading: 0.0,
-      speed: 0.0,
-      speedAccuracy: 0.0);
+  LatLng? _positionDefault;
 
   GoogleMapController get googleMapController => _googleMapController!;
 
@@ -21,10 +12,12 @@ class ProviderMap with ChangeNotifier {
     notifyListeners();
   }
 
-  Position get positionDefault => _positionDefault;
+  LatLng? get positionDefault => _positionDefault;
 
-  set positionDefault(Position value) {
-    _positionDefault = value;
+  set positionDefault(LatLng? value) {
+    if (value != null) {
+      _positionDefault = value;
+    }
     notifyListeners();
   }
 
@@ -36,16 +29,12 @@ class ProviderMap with ChangeNotifier {
       CameraUpdate.newCameraPosition(
         CameraPosition(
             target:
-            LatLng(_positionDefault.latitude, _positionDefault.longitude),
-            zoom: 16.8,
-            bearing: positionDefault.speed > 8 ? positionDefault.heading : 0),
+                LatLng(_positionDefault!.latitude, _positionDefault!.longitude),
+            zoom: 16.8),
       ),
     );
     notifyListeners();
   }
 
-
-  onCameraMove(CameraPosition position) async {
-
-  }
+  onCameraMove(CameraPosition position) async {}
 }

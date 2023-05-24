@@ -1,5 +1,6 @@
 import 'package:calendar_agenda/calendar_agenda.dart';
 import 'package:flutter/material.dart';
+import 'package:lavacar/ui/provider/provider_log_in.dart';
 import 'package:lavacar/ui/provider/provider_service.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +27,7 @@ class _PagePrincipalState extends State<PagePrincipal> {
   ProviderPrincipal? _providerPrincipal;
   ProviderReserve? _providerReserve;
   ProviderService? _providerService;
+  ProviderLogIn? _providerLogIn;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -39,6 +41,7 @@ class _PagePrincipalState extends State<PagePrincipal> {
       _providerPrincipal = Provider.of<ProviderPrincipal>(context);
       _providerReserve = Provider.of<ProviderReserve>(context);
       _providerService = Provider.of<ProviderService>(context);
+      _providerLogIn = Provider.of<ProviderLogIn>(context);
       _providerPrincipal!.dateTimeSelected = GlobalFunction().dateNow;
       _providerPrincipal!.addReserve(
           _providerReserve!,
@@ -124,7 +127,7 @@ class _PagePrincipalState extends State<PagePrincipal> {
                         GlobalWidget()
                             .animationNavigatorView(PageNotification());
                       } else {
-                        _providerPrincipal!.logOut();
+                        _providerPrincipal!.logOut(_providerLogIn!);
                       }
                     },
                     child: Visibility(

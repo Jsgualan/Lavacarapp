@@ -170,12 +170,11 @@ class PageRegisterReserve extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      GlobalWidget().animationNavigatorView(PageMap());
-                      // Gps().checkGPS(_providerMap!).then((value) {
-                      //   if (value) {
-                      //     GlobalWidget().animationNavigatorView(PageMap());
-                      //   }
-                      // });
+                      Gps().checkGPS(_providerMap!).then((value) {
+                        if (value) {
+                          GlobalWidget().animationNavigatorView(PageMap());
+                        }
+                      });
                     },
                     child: Visibility(
                       visible: _providerReserve!.stateCheckHome,

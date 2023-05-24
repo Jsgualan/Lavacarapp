@@ -1,6 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:lavacar/ui/provider/provider_log_in.dart';
 import 'package:lavacar/ui/util/global_notification.dart';
 
 import '../../data/model/response_notification.dart';
@@ -239,11 +240,16 @@ class ProviderPrincipal with ChangeNotifier {
   }
 
   /// Log out
-  logOut() {
+  logOut(ProviderLogIn providerLogIn) {
     GlobalFunction().messageConfirmation(GlobalLabel.textQuestionLogOut, () {
       GlobalPreference().setStateLogin(false);
       listReserve!.clear();
       listNotification!.clear();
+      providerLogIn.googleSignIn!.isSignedIn().then((value) {
+        providerLogIn.googleSignIn!.disconnect();
+        providerLogIn.googleSignIn == null;
+      });
+
       notifyListeners();
       Navigator.of(GlobalFunction.contextGlobal.currentContext!)
           .pushNamedAndRemoveUntil(PageLogIn.route, (route) => false);
@@ -280,7 +286,7 @@ class ProviderPrincipal with ChangeNotifier {
   }
 
   /// Initial notification
-  // initialNotification(){
+// initialNotification(){
 //   FirebaseMessaging.instance.getInitialMessage().then((value) {
 //     _resolved = true;
 //     initialMessage = value?.data.toString();
@@ -298,4 +304,3 @@ class ProviderPrincipal with ChangeNotifier {
 //   });
 // }
 }
-
